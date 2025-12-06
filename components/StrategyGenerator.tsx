@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { generateBusinessStrategy } from '../services/geminiService';
+import { generateBusinessStrategyStream } from '../services/openaiService';
 import { Sparkles, ArrowRight, Loader2, Target, Store, Briefcase } from 'lucide-react';
 
 const StrategyGenerator: React.FC = () => {
@@ -19,8 +19,12 @@ const StrategyGenerator: React.FC = () => {
     setError('');
 
     try {
-      const result = await generateBusinessStrategy(businessName, businessType, goal);
-      setStrategy(result);
+      await generateBusinessStrategyStream(
+        businessName,
+        businessType,
+        goal,
+        (chunk) => setStrategy(prev => prev + chunk)
+      );
     } catch (err) {
       setError('Failed to generate strategy. Please try again.');
     } finally {
