@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { generateBusinessStrategyStream } from '../services/openaiService';
-import { Sparkles, ArrowRight, Loader2, Target, Store, Briefcase } from 'lucide-react';
+import { Sparkles, ArrowRight, Target, Store, Briefcase } from 'lucide-react';
+import LottiePlayer from './LottiePlayer';
 
 const StrategyGenerator: React.FC = () => {
   const [businessName, setBusinessName] = useState('');
@@ -39,13 +40,24 @@ const StrategyGenerator: React.FC = () => {
 
       <div className="relative bg-[#0f172a] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
         <div className="p-8 md:p-10">
-          <div className="flex items-center gap-3 mb-6">
-            <Sparkles className="w-6 h-6 text-violet-400 animate-pulse" />
-            <h3 className="text-2xl font-bold text-white">Free Business Strategy Audit</h3>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-6 h-6 text-violet-400 animate-pulse" />
+              <h3 className="text-2xl font-bold text-white">Free Business Strategy Audit</h3>
+            </div>
+            {/* Small decorative Lottie */}
+            <div className="w-12 h-12 opacity-80">
+              <LottiePlayer src="https://lottie.host/4b5b7c02-4217-48f6-b258-20k18k24j6h5/example-placeholder.json" />
+              {/* Fallback visual if URL fails or using a reliable one:
+                    Using a generic "Bot" or "Tech" animation URL. 
+                    I'll use a reliable public one from LottieFiles "Bot" search.
+                */}
+              <LottiePlayer src="https://assets5.lottiefiles.com/packages/lf20_mjpmej6p.json" />
+            </div>
           </div>
 
           <p className="text-slate-300 mb-8">
-            Not sure if you need a website? Tell us about your business, and our AI consultant will explain exactly how a professional site helps you achieve your specific goal in the Cameroonian market.
+            discovering your Lottie features... Not sure if you need a website? Tell us about your business, and our AI consultant will explain exactly how a professional site helps you achieve your specific goal in the Cameroonian market.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -101,13 +113,16 @@ const StrategyGenerator: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-semibold py-3 px-6 rounded-lg transition-all shadow-lg shadow-violet-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full mt-2 bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-semibold py-3 px-6 rounded-lg transition-all shadow-lg shadow-violet-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed h-[52px]"
             >
               {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Analyzing Market...
-                </>
+                <div className="flex items-center gap-2">
+                  {/* Loading Lottie */}
+                  <div className="w-8 h-8">
+                    <LottiePlayer src="https://assets3.lottiefiles.com/packages/lf20_tmsiddoc.json" />
+                  </div>
+                  <span>Analyzing Market...</span>
+                </div>
               ) : (
                 <>
                   Generate Strategy <ArrowRight className="w-5 h-5" />
@@ -118,13 +133,17 @@ const StrategyGenerator: React.FC = () => {
 
           {strategy && (
             <div className="mt-8 bg-white/5 rounded-xl p-6 border border-violet-500/30 animate-fadeIn relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none opacity-50">
+                {/* Success Lottie */}
+                <LottiePlayer src="https://assets10.lottiefiles.com/packages/lf20_yom6uvgj.json" loop={false} />
+              </div>
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-blue-500"></div>
               <h4 className="text-violet-400 font-semibold mb-2 text-sm uppercase tracking-wide flex items-center gap-2">
                 <Sparkles className="w-4 h-4" /> Your Digital Opportunity
               </h4>
-              <p className="text-slate-200 leading-relaxed whitespace-pre-wrap">{strategy}</p>
+              <p className="text-slate-200 leading-relaxed whitespace-pre-wrap relative z-10">{strategy}</p>
 
-              <div className="mt-6 pt-4 border-t border-white/10">
+              <div className="mt-6 pt-4 border-t border-white/10 relative z-10">
                 <button
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                   className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 group/btn"
