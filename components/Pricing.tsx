@@ -20,7 +20,7 @@ const packages: PricingPackage[] = [
     },
     {
         name: "Growth",
-        price: "100,000 XAF",
+        price: "100,000+ XAF",
         description: "A complete multi-page solution designed to build trust and capture leads.",
         features: [
             "Multi-Page Website (Home, About, Services, Contact)",
