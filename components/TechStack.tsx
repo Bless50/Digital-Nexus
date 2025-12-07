@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { flushSync } from 'react-dom';
-import { Code2, Monitor, Database, PenTool, Layers, Terminal, Cpu } from 'lucide-react';
+import { Code2, Monitor, Database, PenTool, Layers, Terminal, Cpu, Box } from 'lucide-react';
 
 const technologies = [
     { name: 'React', category: 'Frontend', icon: Code2, color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+    { name: 'Next.js', category: 'Frontend', icon: Box, color: 'text-white', bg: 'bg-white/10' },
     { name: 'Tailwind CSS', category: 'Frontend', icon: Layers, color: 'text-sky-400', bg: 'bg-sky-500/10' },
     { name: 'TypeScript', category: 'Frontend', icon: Monitor, color: 'text-blue-400', bg: 'bg-blue-500/10' },
     { name: 'Node.js', category: 'Backend', icon: Terminal, color: 'text-green-400', bg: 'bg-green-500/10' },
@@ -67,8 +68,8 @@ export default function TechStack() {
                             key={category}
                             onClick={() => handleFilterChange(category)}
                             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === category
-                                    ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/25'
-                                    : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                                ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/25'
+                                : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                                 }`}
                         >
                             {category}
