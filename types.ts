@@ -4,6 +4,7 @@ export interface PricingPackage {
   description: string;
   features: string[];
   recommended?: boolean;
+  renewalPrice?: string;
 }
 
 export interface FaqItem {

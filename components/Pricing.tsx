@@ -1,78 +1,91 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Globe, Server, Wrench, Info } from 'lucide-react';
+import { Check, RefreshCw, FilePlus, Palette, Camera, ShieldCheck, CreditCard } from 'lucide-react';
 import { PricingPackage } from '../types';
 
 const packages: PricingPackage[] = [
     {
         name: "Essential",
-        price: "50,000 XAF",
-        description: "Perfect for getting your business online quickly with a professional look.",
+        price: "120,000 XAF",
+        description: "Year 1 - Everything Included. Perfect for getting started.",
         features: [
-            "One Page Website",
-            "Business Information Section",
-            "Services Overview",
-            "Location Map & Contact Form",
-            "Basic SEO Setup",
-            "Delivery in 2 Days"
+            "Professional one-page website",
+            "Mobile responsive design",
+            "Business information section",
+            "Services overview",
+            "Contact form & location map",
+            "Basic SEO setup",
+            "Domain name (Year 1 included)",
+            "Web hosting (Year 1 included)",
+            "Delivery in 3-5 days"
         ],
+        renewalPrice: "50,000 XAF",
         recommended: false
     },
     {
         name: "Growth",
-        price: "100,000+ XAF",
-        description: "A complete multi-page solution designed to build trust and capture leads.",
+        price: "180,000 XAF",
+        description: "Year 1 - Everything Included. Our most popular choice.",
         features: [
-            "Multi-Page Website (Home, About, Services, Contact)",
-            "Photo Gallery / Portfolio",
-            "SEO Optimized Content",
-            "WhatsApp Chat Integration",
-            "Google Business Profile Guidance",
-            "Delivery in 5 Days"
+            "Everything in Essential",
+            "Multi-section professional design",
+            "Photo gallery showcase",
+            "Customer testimonials section",
+            "WhatsApp integration",
+            "SEO optimized content",
+            "Google Business Profile setup assistance",
+            "Domain name (Year 1 included)",
+            "Web hosting (Year 1 included)",
+            "Delivery in 5-7 days"
         ],
+        renewalPrice: "60,000 XAF",
         recommended: true
     },
     {
         name: "Professional",
-        price: "150,000+ XAF",
-        description: "Custom features for businesses ready to dominate their local market.",
+        price: "250,000 XAF",
+        description: "Year 1 - Everything Included. For established businesses.",
         features: [
-            "Full Custom Design",
-            "Booking System or Service Catalog",
-            "Advanced SEO Strategy",
-            "Priority Support",
-            "Custom Features Request",
-            "Delivery in 7-10 Days"
+            "Everything in Growth",
+            "Full custom design tailored to your brand",
+            "Advanced booking system or e-commerce features",
+            "Priority support & unlimited revisions",
+            "Advanced SEO strategy",
+            "Custom features on request",
+            "Domain name (Year 1 included)",
+            "Premium web hosting (Year 1 included)",
+            "Delivery in 7-10 days"
         ],
+        renewalPrice: "75,000 XAF",
         recommended: false
     }
 ];
 
 const addOnServices = [
     {
-        icon: Globe,
-        name: "Domain Name",
-        price: "10,000 - 15,000 XAF",
-        period: "/year",
-        description: "Your professional web address (e.g., yourbusiness.com). Registered in your name—you own it.",
+        icon: RefreshCw,
+        name: "Content Updates",
+        price: "10,000 XAF",
+        period: "per update",
+        description: "Keep your site current with text or image changes as needed.",
         color: "blue"
     },
     {
-        icon: Server,
-        name: "Web Hosting",
-        price: "15,000 - 25,000 XAF",
-        period: "/year",
-        description: "Reliable hosting to keep your website fast and online 24/7. Includes SSL certificate for security.",
-        color: "emerald"
+        icon: FilePlus,
+        name: "Additional Page",
+        price: "20,000 XAF",
+        period: "per page",
+        description: "Expand your website with new pages as your business grows.",
+        color: "violet"
     },
     {
-        icon: Wrench,
+        icon: ShieldCheck,
         name: "Monthly Maintenance",
-        price: "10,000 - 25,000 XAF",
+        price: "20,000 XAF",
         period: "/month",
-        description: "Content updates, security patches, backups, and technical support. Keep your site fresh and secure.",
-        color: "violet"
-    }
+        description: "Includes 2 content updates, backups, and security monitoring.",
+        color: "emerald"
+    },
 ];
 
 export default function Pricing() {
@@ -83,25 +96,29 @@ export default function Pricing() {
         }
     };
 
+    const getColorClasses = (color: string) => {
+        switch (color) {
+            case 'blue': return 'bg-blue-500/20 text-blue-400';
+            case 'emerald': return 'bg-emerald-500/20 text-emerald-400';
+            case 'violet': return 'bg-violet-500/20 text-violet-400';
+            case 'fuchsia': return 'bg-fuchsia-500/20 text-fuchsia-400';
+            case 'orange': return 'bg-orange-500/20 text-orange-400';
+            default: return 'bg-slate-500/20 text-slate-400';
+        }
+    };
+
     return (
         <section id="packages" className="py-20 relative z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="text-center mb-8">
+                <div className="text-center mb-16">
                     <h2 className="text-base text-violet-400 font-semibold tracking-wide uppercase">Packages</h2>
                     <p className="mt-2 text-3xl leading-8 font-extrabold text-white sm:text-4xl">
-                        Transparent Pricing. No Hidden Fees.
+                        All-Inclusive Pricing for Year 1
                     </p>
-                </div>
-
-                {/* What's Included Notice */}
-                <div className="max-w-3xl mx-auto mb-12">
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
-                        <Info className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
-                        <p className="text-sm text-blue-200">
-                            <span className="font-semibold">Package prices cover design & development only.</span> Hosting, domain registration, and monthly maintenance are separate services — see Add-On Services below. We help you set everything up!
-                        </p>
-                    </div>
+                    <p className="mt-4 max-w-2xl text-xl text-slate-400 mx-auto">
+                        Clear renewal pricing for Year 2+. No hidden fees.
+                    </p>
                 </div>
 
                 {/* Pricing Cards */}
@@ -112,14 +129,11 @@ export default function Pricing() {
                 </div>
 
                 {/* Add-On Services Section */}
-                <div className="mt-8">
+                <div className="mt-20">
                     <div className="text-center mb-12">
-                        <h3 className="text-base text-violet-400 font-semibold tracking-wide uppercase">Add-On Services</h3>
+                        <h3 className="text-base text-violet-400 font-semibold tracking-wide uppercase">Optional Add-Ons</h3>
                         <p className="mt-2 text-2xl leading-8 font-bold text-white sm:text-3xl">
-                            Keep Your Website Running Smoothly
-                        </p>
-                        <p className="mt-3 text-slate-400 max-w-2xl mx-auto">
-                            These essential services ensure your website stays online, secure, and up-to-date. We help you set up everything so you maintain full ownership.
+                            Available after your website is launched
                         </p>
                     </div>
 
@@ -133,31 +147,24 @@ export default function Pricing() {
                                 transition={{ delay: index * 0.1 }}
                                 className="relative glass rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all group"
                             >
-                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${service.color === 'blue' ? 'bg-blue-500/20 text-blue-400' :
-                                    service.color === 'emerald' ? 'bg-emerald-500/20 text-emerald-400' :
-                                        'bg-violet-500/20 text-violet-400'
-                                    }`}>
+                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${getColorClasses(service.color)}`}>
                                     <service.icon className="w-6 h-6" />
                                 </div>
                                 <h4 className="text-lg font-bold text-white mb-1">{service.name}</h4>
                                 <div className="flex items-baseline gap-1 mb-3">
-                                    <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
+                                    <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
                                         {service.price}
                                     </span>
-                                    <span className="text-sm text-slate-500">{service.period}</span>
+                                    {service.period && <span className="text-sm text-slate-500 ml-1">{service.period}</span>}
                                 </div>
                                 <p className="text-sm text-slate-400">{service.description}</p>
                             </motion.div>
                         ))}
                     </div>
-
-                    {/* Maintenance Plans Note */}
-                    <div className="mt-8 text-center">
-                        <p className="text-slate-400 text-sm">
-                            <span className="text-white font-medium">Not sure what you need?</span> We'll advise you based on your business needs during our consultation.
-                        </p>
-                    </div>
                 </div>
+
+                {/* What's Included / Key Notes Section */}
+
             </div>
         </section>
     );
@@ -170,7 +177,6 @@ function SpotlightCard({ pkg, index, scrollToSection }: { pkg: PricingPackage, i
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!divRef.current) return;
-
         const rect = divRef.current.getBoundingClientRect();
         setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     };
@@ -203,7 +209,6 @@ function SpotlightCard({ pkg, index, scrollToSection }: { pkg: PricingPackage, i
                 : 'bg-white/5 border-white/10 hover:border-white/20 text-slate-300'
                 }`}
         >
-            {/* Spotlight Effect */}
             <div
                 className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
                 style={{
@@ -217,7 +222,7 @@ function SpotlightCard({ pkg, index, scrollToSection }: { pkg: PricingPackage, i
                     transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
                     className="absolute top-4 right-4 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-lg z-20"
                 >
-                    Best Value
+                    Most Popular
                 </motion.div>
             )}
 
@@ -226,7 +231,7 @@ function SpotlightCard({ pkg, index, scrollToSection }: { pkg: PricingPackage, i
                 <div className="text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
                     {pkg.price}
                 </div>
-                <p className="text-xs text-slate-500 mb-4">Design & Development</p>
+
                 <p className="mb-6 text-sm text-slate-400">{pkg.description}</p>
 
                 <ul className="space-y-4 mb-8 flex-1">
@@ -245,15 +250,24 @@ function SpotlightCard({ pkg, index, scrollToSection }: { pkg: PricingPackage, i
                     ))}
                 </ul>
 
-                <button
-                    onClick={() => scrollToSection('contact')}
-                    className={`w-full py-3 px-4 rounded-lg font-bold text-center transition-all ${pkg.recommended
-                        ? 'bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white shadow-lg shadow-violet-500/25'
-                        : 'bg-white/10 hover:bg-white/20 text-white'
-                        }`}
-                >
-                    Choose {pkg.name}
-                </button>
+                <div className="mt-auto">
+                    {pkg.renewalPrice && (
+                        <div className="mb-4 pt-4 border-t border-white/10">
+                            <p className="text-xs text-slate-500 mb-1">Year 2+ Renewal</p>
+                            <p className="text-lg font-semibold text-blue-300">{pkg.renewalPrice} <span className="text-xs text-slate-500 font-normal">/ year</span></p>
+                        </div>
+                    )}
+
+                    <button
+                        onClick={() => scrollToSection('contact')}
+                        className={`w-full py-3 px-4 rounded-lg font-bold text-center transition-all ${pkg.recommended
+                            ? 'bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white shadow-lg shadow-violet-500/25'
+                            : 'bg-white/10 hover:bg-white/20 text-white'
+                            }`}
+                    >
+                        Choose {pkg.name}
+                    </button>
+                </div>
             </div>
         </motion.div>
     );

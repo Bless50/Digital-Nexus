@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { generateBusinessStrategyStream } from '../services/openaiService';
-import { Sparkles, ArrowRight, Target, Store, Briefcase } from 'lucide-react';
+import { generateBusinessStrategyStream } from '../services/anthropicService';
+import { Sparkles, ArrowRight, Target, Store, Briefcase, Key } from 'lucide-react';
 import LottiePlayer from './LottiePlayer';
 
 const StrategyGenerator: React.FC = () => {
   const [businessName, setBusinessName] = useState('');
   const [businessType, setBusinessType] = useState('');
   const [goal, setGoal] = useState('');
+
   const [strategy, setStrategy] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -15,19 +16,27 @@ const StrategyGenerator: React.FC = () => {
     e.preventDefault();
     if (!businessName || !businessType || !goal) return;
 
+    const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
+
+    if (!apiKey) {
+      setError('Service configuration error: API Key missing.');
+      return;
+    }
+
     setLoading(true);
     setStrategy('');
     setError('');
 
     try {
       await generateBusinessStrategyStream(
+        apiKey,
         businessName,
         businessType,
         goal,
         (chunk) => setStrategy(prev => prev + chunk)
       );
     } catch (err) {
-      setError('Failed to generate strategy. Please try again.');
+      setError('Failed to generate strategy. Please check your API key and try again.');
     } finally {
       setLoading(false);
     }
@@ -57,7 +66,7 @@ const StrategyGenerator: React.FC = () => {
           </div>
 
           <p className="text-slate-300 mb-8">
-            discovering your Lottie features... Not sure if you need a website? Tell us about your business, and our AI consultant will explain exactly how a professional site helps you achieve your specific goal in the Cameroonian market.
+            Tell us about your business, and our AI consultant will explain exactly how a professional site helps you achieve your specific goal in the Cameroonian market.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -109,6 +118,8 @@ const StrategyGenerator: React.FC = () => {
                 </select>
               </div>
             </div>
+
+
 
             <button
               type="submit"
